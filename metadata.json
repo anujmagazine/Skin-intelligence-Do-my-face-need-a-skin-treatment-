@@ -1,0 +1,7 @@
+{
+  "name": "GlowCheck AI - Personal Skin Analyst",
+  "description": "A professional-grade skin analysis tool that uses advanced AI to evaluate your facial skin health and determine if you're due for a professional facial treatment.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
