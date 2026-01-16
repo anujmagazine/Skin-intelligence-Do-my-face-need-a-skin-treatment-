@@ -105,10 +105,52 @@ const App: React.FC = () => {
         )}
 
         {status === AnalysisStatus.CAPTURING && (
-          <div className="w-full max-w-4xl px-4 py-12 animate-in slide-in-from-bottom-8 duration-500">
-             <header className="text-center mb-8">
-               <h2 className="serif text-3xl font-bold mb-2">Ready for your scan?</h2>
-               <p className="text-stone-500">Ensure good lighting for the most accurate results.</p>
+          <div className="w-full max-w-4xl px-4 py-8 animate-in slide-in-from-bottom-8 duration-500">
+             <header className="text-center mb-10">
+               <h2 className="serif text-3xl font-bold mb-3 text-stone-800">Optimize Your Scan</h2>
+               <p className="text-stone-500 mb-8 max-w-lg mx-auto">AI analysis is most accurate when your skin is clearly visible. Follow these 3 simple rules:</p>
+               
+               {/* 3 Step Instructions */}
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left max-w-3xl mx-auto">
+                 <div className="relative group p-6 bg-white rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                   <div className="flex flex-col gap-3">
+                     <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mb-2">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                     </div>
+                     <div>
+                       <h4 className="font-bold text-stone-800 text-base">Natural Lighting</h4>
+                       <p className="text-sm text-stone-500 leading-snug mt-1">Face a window for soft, direct light. Avoid harsh overhead bulbs that create deep shadows.</p>
+                     </div>
+                   </div>
+                   <div className="absolute top-4 right-4 text-stone-100 font-serif text-4xl select-none">1</div>
+                 </div>
+
+                 <div className="relative group p-6 bg-white rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                   <div className="flex flex-col gap-3">
+                     <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-2">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                     </div>
+                     <div>
+                       <h4 className="font-bold text-stone-800 text-base">Clean Canvas</h4>
+                       <p className="text-sm text-stone-500 leading-snug mt-1">Remove glasses and pull back your hair. Bare, clean skin allows for the most precise pore analysis.</p>
+                     </div>
+                   </div>
+                   <div className="absolute top-4 right-4 text-stone-100 font-serif text-4xl select-none">2</div>
+                 </div>
+
+                 <div className="relative group p-6 bg-white rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                   <div className="flex flex-col gap-3">
+                     <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-2">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                     </div>
+                     <div>
+                       <h4 className="font-bold text-stone-800 text-base">Still & Level</h4>
+                       <p className="text-sm text-stone-500 leading-snug mt-1">Hold your device at eye level and keep perfectly still until the capture is complete.</p>
+                     </div>
+                   </div>
+                   <div className="absolute top-4 right-4 text-stone-100 font-serif text-4xl select-none">3</div>
+                 </div>
+               </div>
              </header>
              <CameraView onCapture={handleCapture} onCancel={() => setStatus(AnalysisStatus.IDLE)} />
           </div>
