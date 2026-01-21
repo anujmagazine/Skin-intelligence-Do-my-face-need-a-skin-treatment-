@@ -8,15 +8,21 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
   // Extract base64 data from the data URI
   const base64Data = base64Image.split(',')[1];
   
-  const prompt = `Analyze this facial image for skin health. Determine if the person would benefit from a professional facial treatment.
-  Look for signs of:
-  1. Congestion/blackheads/clogged pores
-  2. Dehydration or flakiness
-  3. Dullness or uneven tone
-  4. Redness or inflammation
-  5. Texture issues
+  const prompt = `Analyze this facial image for skin health. Your goal is to help a regular person understand their skin state and decide if they need a professional facial.
   
-  Provide a detailed analysis in JSON format. Be professional, encouraging, and clinical in tone.`;
+  Look for signs of:
+  1. Congestion (clogged pores, blackheads)
+  2. Dehydration (dryness, tight-looking skin, fine lines)
+  3. Dullness (skin looking "tired" or lacking its natural glow)
+  4. Redness or sensitivity
+  5. Texture (roughness or bumps)
+  
+  IMPORTANT LANGUAGE GUIDELINE:
+  - Avoid heavy medical jargon. Instead of "erythema," say "visible redness." Instead of "desquamation," say "flaking or peeling skin."
+  - If you must use a technical term, explain it simply.
+  - Keep the tone like a friendly, knowledgeable skin consultant.
+  
+  Provide a detailed analysis in JSON format.`;
 
   try {
     const response = await ai.models.generateContent({
@@ -37,14 +43,14 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
             skinConcerns: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Identified visible skin issues"
+              description: "Visible skin issues described in simple, plain English"
             },
-            reasoning: { type: Type.STRING, description: "Detailed explanation of the findings" },
-            recommendedTreatment: { type: Type.STRING, description: "Type of facial suggested (e.g., Hydrating, Deep Cleansing, Chemical Peel)" },
+            reasoning: { type: Type.STRING, description: "A clear, easy-to-read explanation of what you see in the photo" },
+            recommendedTreatment: { type: Type.STRING, description: "A simple name for the suggested treatment (e.g., 'Deep Clean' or 'Moisture Boost')" },
             homeCareTips: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Actionable advice for home maintenance"
+              description: "Simple, actionable advice for home maintenance"
             }
           },
           required: ["shouldGetFacial", "urgencyScore", "skinConcerns", "reasoning", "recommendedTreatment", "homeCareTips"]
