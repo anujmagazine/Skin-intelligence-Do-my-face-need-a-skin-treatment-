@@ -10,17 +10,22 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
   
   const prompt = `Analyze this facial image for skin health. Your goal is to help a regular person understand their skin state and decide if they need a professional facial.
   
-  Look for signs of:
-  1. Congestion (clogged pores, blackheads)
-  2. Dehydration (dryness, tight-looking skin, fine lines)
-  3. Dullness (skin looking "tired" or lacking its natural glow)
-  4. Redness or sensitivity
-  5. Texture (roughness or bumps)
+  SCORING SYSTEM (1-10):
+  - 10: Perfect skin. Healthy, hydrated, and clear.
+  - 1: Skin that really needs help. Very clogged, very dry, or very irritated.
   
-  IMPORTANT LANGUAGE GUIDELINE:
-  - Avoid heavy medical jargon. Instead of "erythema," say "visible redness." Instead of "desquamation," say "flaking or peeling skin."
-  - If you must use a technical term, explain it simply.
-  - Keep the tone like a friendly, knowledgeable skin consultant.
+  Look for signs of:
+  1. Clogged pores or blackheads
+  2. Dryness (skin looking "thirsty" or having tiny flakes)
+  3. Tired skin (lacking a healthy glow)
+  4. Redness or sensitivity
+  5. Roughness or small bumps
+  
+  LANGUAGE GUIDELINES:
+  - Use very simple, everyday language.
+  - DO NOT use acronyms like TLC. Use "extra care" or "attention" instead.
+  - DO NOT use medical jargon. Use "clogged" instead of "congested," "redness" instead of "erythema."
+  - Be encouraging and helpful.
   
   Provide a detailed analysis in JSON format.`;
 
@@ -39,18 +44,18 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
           type: Type.OBJECT,
           properties: {
             shouldGetFacial: { type: Type.BOOLEAN },
-            urgencyScore: { type: Type.INTEGER, description: "1-10 score of how much the skin needs professional attention" },
+            urgencyScore: { type: Type.INTEGER, description: "1-10 score: 10 is perfect, 1 is high need for help" },
             skinConcerns: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Visible skin issues described in simple, plain English"
+              description: "Visible skin issues described in very simple, plain English"
             },
-            reasoning: { type: Type.STRING, description: "A clear, easy-to-read explanation of what you see in the photo" },
-            recommendedTreatment: { type: Type.STRING, description: "A simple name for the suggested treatment (e.g., 'Deep Clean' or 'Moisture Boost')" },
+            reasoning: { type: Type.STRING, description: "A clear, simple explanation of what you see" },
+            recommendedTreatment: { type: Type.STRING, description: "A simple name for the treatment (e.g., 'Deep Clean' or 'Moisture Boost')" },
             homeCareTips: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Simple, actionable advice for home maintenance"
+              description: "Simple, easy steps for home care"
             }
           },
           required: ["shouldGetFacial", "urgencyScore", "skinConcerns", "reasoning", "recommendedTreatment", "homeCareTips"]
