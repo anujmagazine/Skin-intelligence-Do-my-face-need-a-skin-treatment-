@@ -212,7 +212,6 @@ const App: React.FC = () => {
           <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-stone-400">
             <a href="#" className="hover:text-stone-600">Privacy</a>
             <a href="#" className="hover:text-stone-600">Terms</a>
-            <a href="#" className="hover:text-stone-600">Clinical Data</a>
           </div>
           
           <p className="text-stone-400 text-xs">© 2024 GlowCheck AI. Not a medical diagnostic tool.</p>
