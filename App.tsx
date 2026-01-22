@@ -198,8 +198,17 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-stone-50 border-t border-stone-100 py-12 px-6">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Disclaimer section - Just below report ends, above the links */}
+          <div className="mb-12 text-center max-w-3xl mx-auto px-4">
+            <p className="text-stone-500 text-sm leading-relaxed italic">
+              Note: This app provides insights similar to an <span className="font-bold">Esthetician (spa-level treatments)</span> rather than a <span className="font-bold text-stone-400 italic">Dermatologist (medical treatments)</span>. 
+              We do not suggest prescription medications or invasive procedures (like Surgery). Our analysis focuses strictly on 
+              <span className="text-indigo-500 font-medium"> Facials</span> and <span className="text-indigo-500 font-medium">Daily Home Care</span> routines.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-stone-200 pt-8">
             <div className="flex flex-col items-center md:items-start gap-2">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-stone-400 rounded flex items-center justify-center">
@@ -211,20 +220,11 @@ const App: React.FC = () => {
             </div>
             
             <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-stone-400">
-              <a href="#" className="hover:text-stone-600">Privacy</a>
-              <a href="#" className="hover:text-stone-600">Terms</a>
+              <a href="#" className="hover:text-stone-900 transition-colors">Privacy</a>
+              <a href="#" className="hover:text-stone-900 transition-colors">Terms</a>
             </div>
             
-            <p className="text-stone-400 text-xs">© 2024 GlowCheck AI. Not a medical tool.</p>
-          </div>
-
-          {/* New Simplified Disclaimer */}
-          <div className="pt-8 border-t border-stone-200 text-center max-w-3xl mx-auto">
-            <p className="text-stone-500 text-xs leading-relaxed italic">
-              Note: This app provides insights similar to an <span className="font-bold">Esthetician (spa-level treatments)</span> rather than a <span className="font-bold text-stone-400 italic">Dermatologist (medical treatments)</span>. 
-              We do not suggest prescription medications or invasive procedures (like Surgery). Our analysis focuses strictly on 
-              <span className="text-indigo-500 font-medium"> Facials</span> and <span className="text-indigo-500 font-medium">Daily Home Care</span> routines.
-            </p>
+            <p className="text-stone-400 text-lg font-semibold">@ 2026 AI&Beyond</p>
           </div>
         </div>
       </footer>
