@@ -16,24 +16,16 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ analysis, image, onReset })
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row gap-8 items-start">
         {/* Profile Image Column */}
         <div className="w-full md:w-1/3 flex flex-col items-center">
           <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white aspect-square w-full">
             <img src={image} alt="Analyzed face" className="w-full h-full object-cover" />
-            <div className={`absolute bottom-4 right-4 px-3 py-1 rounded-full text-sm font-bold border ${getUrgencyColor(analysis.urgencyScore)}`}>
+            <div className={`absolute bottom-4 right-4 px-3 py-1 rounded-full text-sm font-bold border ${getUrgencyColor(analysis.urgencyScore)} shadow-sm backdrop-blur-md bg-opacity-90`}>
               Skin Score: {analysis.urgencyScore}/10
             </div>
           </div>
-          
-          <button 
-            onClick={onReset}
-            className="mt-6 text-stone-500 hover:text-stone-800 transition-colors flex items-center gap-2 text-sm font-medium w-full justify-center py-3 rounded-xl border border-dashed border-stone-200 hover:border-stone-400"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            Start New Scan
-          </button>
 
           {/* Score Explanation Block */}
           <div className="mt-8 p-5 bg-stone-50 rounded-2xl border border-stone-100 w-full space-y-4">
@@ -75,7 +67,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ analysis, image, onReset })
         {/* Results Column */}
         <div className="w-full md:w-2/3 space-y-6">
           <header className="space-y-2">
-            <h2 className="serif text-3xl font-bold text-stone-800">Your Skin Report</h2>
+            <h2 className="serif text-4xl font-bold text-stone-800">Your Skin Report</h2>
             <div className="flex items-center gap-3">
               <span className={`px-4 py-1.5 rounded-full text-sm font-semibold ${analysis.shouldGetFacial ? 'bg-indigo-100 text-indigo-700' : 'bg-stone-100 text-stone-600'}`}>
                 {analysis.shouldGetFacial ? 'Professional Care Suggested' : 'Daily Routine is Working'}
@@ -121,6 +113,20 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ analysis, image, onReset })
               ))}
             </div>
           </section>
+        </div>
+      </div>
+
+      {/* Prominent Reset Action */}
+      <div className="pt-8 flex flex-col items-center border-t border-stone-100">
+        <div className="text-center space-y-4 max-w-sm">
+          <p className="text-stone-400 text-sm">Want to track your progress or scan a different area?</p>
+          <button 
+            onClick={onReset}
+            className="w-full px-8 py-4 bg-stone-900 text-white rounded-2xl font-bold shadow-xl hover:bg-stone-800 hover:-translate-y-1 transition-all active:translate-y-0 flex items-center justify-center gap-3"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Start New Scan
+          </button>
         </div>
       </div>
     </div>
