@@ -8,26 +8,20 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
   // Extract base64 data from the data URI
   const base64Data = base64Image.split(',')[1];
   
-  const prompt = `Analyze this facial image for skin health. Your goal is to help a regular person understand their skin state and decide if they need a professional facial.
+  const prompt = `You are an expert, high-end esthetician who speaks with warmth, grace, and empathy. Analyze this facial image to help the user understand their skin's current mood.
+  
+  TONE & STYLE:
+  - Use "Soft Feminine Self-Care" language. Think of a luxury spa consultation.
+  - Avoid clinical or medical words like "pathology," "epidermis," "congestion," or "clinical findings."
+  - Instead of "Scan," use words like "Observation" or "Ritual."
+  - Instead of "Urgency," think of "Care Priority."
+  - Be encouraging, gentle, and focused on nurturing the skin.
   
   SCORING SYSTEM (1-10):
-  - 10: Perfect skin. Healthy, hydrated, and clear.
-  - 1: Skin that really needs help. Very clogged, very dry, or very irritated.
+  - 10: Radiant, balanced, and deeply hydrated.
+  - 1: Very tired, thirsty, or in need of immediate professional nurturing.
   
-  Look for signs of:
-  1. Clogged pores or blackheads
-  2. Dryness (skin looking "thirsty" or having tiny flakes)
-  3. Tired skin (lacking a healthy glow)
-  4. Redness or sensitivity
-  5. Roughness or small bumps
-  
-  LANGUAGE GUIDELINES:
-  - Use very simple, everyday language.
-  - DO NOT use acronyms like TLC. Use "extra care" or "attention" instead.
-  - DO NOT use medical jargon. Use "clogged" instead of "congested," "redness" instead of "erythema."
-  - Be encouraging and helpful.
-  
-  Provide a detailed analysis in JSON format.`;
+  Provide a detailed consultation in JSON format.`;
 
   try {
     const response = await ai.models.generateContent({
@@ -44,18 +38,18 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
           type: Type.OBJECT,
           properties: {
             shouldGetFacial: { type: Type.BOOLEAN },
-            urgencyScore: { type: Type.INTEGER, description: "1-10 score: 10 is perfect, 1 is high need for help" },
+            urgencyScore: { type: Type.INTEGER, description: "1-10 score: 10 is radiant perfection, 1 is skin needing deep care" },
             skinConcerns: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Visible skin issues described in very simple, plain English"
+              description: "Skin observations described with warmth (e.g., 'your skin is feeling a bit thirsty' instead of 'dehydrated')"
             },
-            reasoning: { type: Type.STRING, description: "A clear, simple explanation of what you see" },
-            recommendedTreatment: { type: Type.STRING, description: "A simple name for the treatment (e.g., 'Deep Clean' or 'Moisture Boost')" },
+            reasoning: { type: Type.STRING, description: "A gentle, nurturing explanation of what you observe in her radiance" },
+            recommendedTreatment: { type: Type.STRING, description: "An elegant name for a spa treatment (e.g., 'The Dewy Glow Ritual')" },
             homeCareTips: { 
               type: Type.ARRAY, 
               items: { type: Type.STRING },
-              description: "Simple, easy steps for home care"
+              description: "Nurturing self-care steps for her morning or evening ritual"
             }
           },
           required: ["shouldGetFacial", "urgencyScore", "skinConcerns", "reasoning", "recommendedTreatment", "homeCareTips"]
@@ -64,11 +58,11 @@ export const analyzeSkin = async (base64Image: string): Promise<SkinAnalysis> =>
     });
 
     const resultText = response.text;
-    if (!resultText) throw new Error("No analysis returned from AI");
+    if (!resultText) throw new Error("No consultation returned from the AI");
     
     return JSON.parse(resultText) as SkinAnalysis;
   } catch (error) {
-    console.error("Gemini Analysis Error:", error);
+    console.error("Esthetician Consultation Error:", error);
     throw error;
   }
 };
